@@ -7,13 +7,18 @@
 // `error_chain!` can recurse deeply
 #![recursion_limit = "1024"]
 
+#![cfg_attr(all(feature = "mesalock_sgx",
+                not(target_env = "sgx")), no_std)]
+#![cfg_attr(all(target_env = "sgx", target_vendor = "mesalock"), feature(rustc_private))]
+
+#[cfg(all(feature = "mesalock_sgx", not(target_env = "sgx")))]
 #[macro_use]
 extern crate error_chain;
 
 extern crate base64;
 extern crate merkle_sigs;
 extern crate protobuf;
-extern crate rand;
+extern crate sgx_rand as rand;
 extern crate ring;
 
 #[macro_use]

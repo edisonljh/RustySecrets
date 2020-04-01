@@ -21,12 +21,13 @@ travis-ci = { repository = "SpinResearch/RustySecrets", branch = "master" }
 coveralls = { repository = "SpinResearch/RustySecrets", branch = "master", service = "github" }
 
 [features]
-default = []
-dss = []
+# dss = []
+default = ["mesalock_sgx"]
+mesalock_sgx = ["sgx_rand"]
 
 [dependencies]
 base64 = "0.9.0"
-rand = "^0.4.2"
+sgx_rand = { rev = "v1.1.1", git = "https://github.com/apache/incubator-teaclave-sgx-sdk.git", optional = true }
 ring = "^0.12"
 merkle_sigs = "^1.4"
 protobuf = ">= 1.4, < 1.6"
@@ -39,7 +40,6 @@ default-features = false
 itertools = "^0.7"
 quickcheck = "^0.4"
 flate2 = "^0.2"
-rand = "^0.4.2"
 
 [profile.bench]
 opt-level = 3
